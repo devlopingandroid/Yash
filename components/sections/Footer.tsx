@@ -16,18 +16,15 @@ export const Footer: React.FC = () => {
     <footer className="py-16 border-t border-dark-border/40 bg-dark-bg text-muted">
       {/* 5-Column Grid Layout */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 pb-12 border-b border-dark-border/60">
-        {/* Column 1: Logo, Taglines, & Social Icons */}
+        {/* Column 1: Brand, Taglines, & Social Icons */}
         <div className="sm:col-span-2 lg:col-span-1 space-y-4">
-          <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Yash Goel Logo" className="h-9 sm:h-10 w-auto object-contain" />
-            <div>
-              <h4 className="font-extrabold text-lg text-primary leading-tight">
-                Yash <span className="text-accent-teal">Goel</span>
-              </h4>
-              <p className="text-xs font-mono text-muted flex items-center gap-1">
-                <Terminal className="w-3.5 h-3.5 text-accent-teal" /> Software Eng.
-              </p>
-            </div>
+          <div>
+            <h4 className="font-extrabold text-lg text-primary leading-tight">
+              Yash <span className="text-accent-teal">Goel</span>
+            </h4>
+            <p className="text-xs font-mono text-muted flex items-center gap-1">
+              <Terminal className="w-3.5 h-3.5 text-accent-teal" /> Software Eng.
+            </p>
           </div>
 
           {/* Tagline Lines */}

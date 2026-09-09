@@ -74,17 +74,12 @@ export const Navbar: React.FC = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-          {/* Left Brand: Logo Image & Name */}
+          {/* Left Brand: Name */}
           <a
             href="#home"
             onClick={(e) => handleNavClick(e, "home")}
-            className="flex items-center gap-3 group shrink-0"
+            className="flex items-center group shrink-0"
           >
-            <img
-              src="/logo.png"
-              alt="Yash Goel Logo"
-              className="h-9 sm:h-10 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]"
-            />
             <div>
               <h1 className="font-extrabold text-base sm:text-lg text-primary leading-tight tracking-tight">
                 Yash <span className="text-accent-teal">Goel</span>
