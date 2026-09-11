@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks, personalInfo } from "@/data/portfolio-data";
-import { Menu, X, FileDown, Eye, Terminal, ArrowRight } from "lucide-react";
+import { Menu, X, FileDown, Eye, Terminal, ArrowRight, FileText } from "lucide-react";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { SiLeetcode } from "react-icons/si";
 import Button from "@/components/ui/Button";
@@ -75,23 +75,25 @@ export const Navbar: React.FC = () => {
       >
         <div className="w-full max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-14 xl:px-20 flex items-center justify-between gap-4">
           {/* Left Brand: Name */}
-          <a
-            href="#home"
-            onClick={(e) => handleNavClick(e, "home")}
-            className="flex items-center group shrink-0"
-          >
-            <div>
-              <h1 className="font-extrabold text-base sm:text-lg text-primary leading-tight tracking-tight">
-                Yash <span className="text-accent-teal">Goel</span>
-              </h1>
-              <p className="text-[11px] font-mono text-muted flex items-center gap-1">
-                <Terminal className="w-3 h-3 text-accent-teal" /> Software Eng.
-              </p>
-            </div>
-          </a>
+          <div className="flex-1 flex items-center">
+            <a
+              href="#home"
+              onClick={(e) => handleNavClick(e, "home")}
+              className="flex items-center group shrink-0"
+            >
+              <div>
+                <h1 className="font-extrabold text-base sm:text-lg text-primary leading-tight tracking-tight">
+                  Yash <span className="text-accent-teal">Goel</span>
+                </h1>
+                <p className="text-[11px] font-mono text-muted flex items-center gap-1">
+                  <Terminal className="w-3 h-3 text-accent-teal" /> Software Eng.
+                </p>
+              </div>
+            </a>
+          </div>
 
           {/* Desktop Center Navigation Links with Modern Sliding Pill */}
-          <nav className="hidden xl:flex items-center gap-1 bg-stone-100/70 dark:bg-stone-900/60 p-1.5 rounded-2xl border border-stone-200/70 dark:border-stone-800/80 backdrop-blur-xl">
+          <nav className="hidden xl:flex items-center justify-center gap-1 bg-stone-100/70 dark:bg-stone-900/60 p-1.5 rounded-2xl border border-stone-200/70 dark:border-stone-800/80 backdrop-blur-xl shrink-0">
             {navLinks.map((link) => {
               const isActive = activeSection === link.sectionId;
               return (
@@ -123,64 +125,23 @@ export const Navbar: React.FC = () => {
             })}
           </nav>
 
-          {/* Right Action Buttons & Social Icons */}
-          <div className="hidden sm:flex items-center gap-3 shrink-0">
-            {/* Social Links */}
-            <div className="flex items-center gap-1.5 pr-2 border-r border-dark-border/60">
-              <a
-                href={personalInfo.socialLinks.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-xl text-muted hover:text-accent-teal hover:bg-dark-surface border border-transparent hover:border-dark-border transition-all"
-                aria-label="GitHub"
-              >
-                <FaGithub className="w-4 h-4" />
-              </a>
-              <a
-                href={personalInfo.socialLinks.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-xl text-muted hover:text-accent-teal hover:bg-dark-surface border border-transparent hover:border-dark-border transition-all"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedin className="w-4 h-4" />
-              </a>
-              {personalInfo.socialLinks.leetcode && (
-                <a
-                  href={personalInfo.socialLinks.leetcode}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-xl text-muted hover:text-[#FFA116] hover:bg-dark-surface border border-transparent hover:border-dark-border transition-all"
-                  aria-label="LeetCode"
-                >
-                  <SiLeetcode className="w-4 h-4" />
-                </a>
-              )}
-              <a
-                href={personalInfo.socialLinks.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-xl text-muted hover:text-accent-teal hover:bg-dark-surface border border-transparent hover:border-dark-border transition-all"
-                aria-label="Twitter"
-              >
-                <FaXTwitter className="w-4 h-4" />
-              </a>
-            </div>
-
+          {/* Right Action Buttons */}
+          <div className="flex-1 hidden sm:flex items-center justify-end gap-3 shrink-0">
             {/* Theme Toggle */}
             <ThemeToggle />
 
-            {/* Resume Buttons */}
+            {/* Resume Button */}
             <Button
               onClick={() => setIsResumeModalOpen(true)}
               variant="outline"
               size="sm"
-              className="text-xs px-3.5 py-1.5 bg-white/80 dark:bg-stone-900/80 border-stone-200/90 dark:border-stone-800 text-stone-700 dark:text-stone-300 hover:text-accent-teal hover:border-accent-teal/40 shadow-sm font-medium"
-              icon={<Eye className="w-3.5 h-3.5" />}
+              className="text-xs px-3.5 py-1.5 bg-white/80 dark:bg-stone-900/80 border-stone-200/90 dark:border-stone-800 text-stone-700 dark:text-stone-300 hover:text-accent-teal hover:border-accent-teal/40 shadow-sm font-semibold flex items-center gap-1.5"
+              icon={<FileText className="w-3.5 h-3.5 text-accent-teal" />}
             >
-              Preview
+              Resume
             </Button>
 
+            {/* Let's Talk CTA */}
             <Button
               href="#contact"
               onClick={(e) => handleNavClick(e, "contact")}
@@ -261,10 +222,10 @@ export const Navbar: React.FC = () => {
                     }}
                     variant="outline"
                     size="sm"
-                    className="w-full justify-center text-xs"
-                    icon={<Eye className="w-3.5 h-3.5" />}
+                    className="w-full justify-center text-xs font-semibold"
+                    icon={<FileText className="w-3.5 h-3.5 text-accent-teal" />}
                   >
-                    Preview
+                    Resume
                   </Button>
 
                   <Button

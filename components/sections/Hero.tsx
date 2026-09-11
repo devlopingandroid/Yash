@@ -11,6 +11,8 @@ import {
   Terminal,
   Code2,
 } from "lucide-react";
+import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { SiLeetcode } from "react-icons/si";
 
 export const Hero: React.FC = () => {
   return (
@@ -166,6 +168,60 @@ export const Hero: React.FC = () => {
             >
               Contact Me
             </Button>
+          </div>
+
+          {/* Prominent Developer Profiles */}
+          <div className="pt-6 border-t border-stone-200/80 dark:border-stone-800/80 mt-6 flex flex-wrap items-center gap-3">
+            <span className="text-xs font-mono uppercase tracking-wider text-muted font-bold mr-1">
+              Profiles:
+            </span>
+            <div className="flex flex-wrap items-center gap-2.5">
+              <a
+                href={personalInfo.socialLinks.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/90 dark:bg-stone-900/90 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200/90 dark:border-stone-800 shadow-sm transition-all hover:border-orange-500/50 hover:text-orange-600 dark:hover:text-orange-400 hover:-translate-y-0.5"
+                title="GitHub Profile"
+              >
+                <FaGithub className="w-3.5 h-3.5" />
+                <span>GitHub</span>
+              </a>
+
+              <a
+                href={personalInfo.socialLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/90 dark:bg-stone-900/90 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200/90 dark:border-stone-800 shadow-sm transition-all hover:border-orange-500/50 hover:text-orange-600 dark:hover:text-orange-400 hover:-translate-y-0.5"
+                title="LinkedIn Profile"
+              >
+                <FaLinkedin className="w-3.5 h-3.5 text-[#0A66C2]" />
+                <span>LinkedIn</span>
+              </a>
+
+              {personalInfo.socialLinks.leetcode && (
+                <a
+                  href={personalInfo.socialLinks.leetcode}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/90 dark:bg-stone-900/90 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200/90 dark:border-stone-800 shadow-sm transition-all hover:border-orange-500/50 hover:text-orange-600 dark:hover:text-orange-400 hover:-translate-y-0.5"
+                  title="LeetCode Profile"
+                >
+                  <SiLeetcode className="w-3.5 h-3.5 text-[#FFA116]" />
+                  <span>LeetCode</span>
+                </a>
+              )}
+
+              <a
+                href={personalInfo.socialLinks.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/90 dark:bg-stone-900/90 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200/90 dark:border-stone-800 shadow-sm transition-all hover:border-orange-500/50 hover:text-orange-600 dark:hover:text-orange-400 hover:-translate-y-0.5"
+                title="Twitter / X Profile"
+              >
+                <FaXTwitter className="w-3.5 h-3.5" />
+                <span>Twitter / X</span>
+              </a>
+            </div>
           </div>
         </motion.div>
       </div>
