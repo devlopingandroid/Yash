@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink, FileDown, Eye } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { getAssetPath } from "@/lib/asset";
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -14,7 +15,7 @@ interface ResumeModalProps {
 export const ResumeModal: React.FC<ResumeModalProps> = ({
   isOpen,
   onClose,
-  pdfUrl = "/Yash_Goel.pdf",
+  pdfUrl = getAssetPath("/Yash_Goel.pdf"),
 }) => {
   // Close on Escape key press
   useEffect(() => {

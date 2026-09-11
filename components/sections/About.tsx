@@ -4,6 +4,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { aboutData, personalInfo, heroStats } from "@/data/portfolio-data";
+import { getAssetPath } from "@/lib/asset";
 import SectionBadge from "@/components/ui/SectionBadge";
 import {
   Server,
@@ -131,7 +132,7 @@ export const About: React.FC = () => {
             <div className="relative w-full h-full rounded-full p-2 border border-dark-border bg-dark-surface shadow-xl shadow-stone-900/5 dark:shadow-black/40 overflow-hidden group">
               <div className="w-full h-full rounded-full overflow-hidden relative">
                 <img
-                  src="/about.jpeg"
+                  src={getAssetPath("/about.jpeg")}
                   alt={personalInfo.name}
                   className="w-full h-full object-cover object-[78%_55%] scale-110 group-hover:scale-115 transition-transform duration-500"
                   onError={(e) => {

@@ -1,3 +1,29 @@
+import { getAssetPath } from "@/lib/asset";
+
+function fixAssets<T>(obj: T): T {
+  if (!obj) return obj;
+  if (typeof obj === "string") {
+    if (
+      (obj.startsWith("/") || obj.startsWith("./")) &&
+      /\.(png|jpe?g|svg|webp|gif|pdf|ico)$/i.test(obj)
+    ) {
+      return getAssetPath(obj) as unknown as T;
+    }
+    return obj;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(fixAssets) as unknown as T;
+  }
+  if (typeof obj === "object") {
+    const res: Record<string, any> = {};
+    for (const key of Object.keys(obj)) {
+      res[key] = fixAssets((obj as any)[key]);
+    }
+    return res as T;
+  }
+  return obj;
+}
+
 export interface PersonalInfo {
   name: string;
   firstName: string;
@@ -59,7 +85,7 @@ export interface ExperienceItem {
   certificateUrl?: string;
 }
 
-export const experienceData: ExperienceItem[] = [
+export const experienceData: ExperienceItem[] = fixAssets([
   {
     id: "exp-infosys",
     role: "Software Development Intern",
@@ -117,7 +143,7 @@ export const experienceData: ExperienceItem[] = [
     technologies: ["Python", "NumPy", "SciPy", "Pandas", "Signal Processing", "Jupyter", "Data Analysis"],
     certificateUrl: "/certificates/Certificate_Yash Goel_mHelath 2025-page-00001.jpg",
   },
-];
+]);
 
 export interface CaseStudyStat {
   label: string;
@@ -312,7 +338,7 @@ export const footerData = {
   builtWith: "Designed & Built with ❤️ by Yash Goel",
 };
 
-export const resumeData = {
+export const resumeData = fixAssets({
   atsScore: 96,
   statusLabel: "Excellent",
   checklist: [
@@ -323,9 +349,9 @@ export const resumeData = {
     { label: "Industry Keywords Optimization", passed: true, score: "92%" },
   ],
   downloadUrl: "/Yash_Goel.pdf",
-};
+});
 
-export const personalInfo: PersonalInfo = {
+export const personalInfo: PersonalInfo = fixAssets({
   name: "Yash Goel",
   firstName: "Yash",
   lastName: "Goel",
@@ -343,7 +369,7 @@ export const personalInfo: PersonalInfo = {
     twitter: "https://x.com/yashbuilds_",
     leetcode: "https://leetcode.com/u/yashgoel01/",
   },
-};
+});
 
 export const heroStats: StatItem[] = [
   { id: "stat-1", number: "3", label: "Internships", iconName: "Briefcase" },
@@ -442,7 +468,7 @@ export const techILoveData = {
   description: "Passionate about building scalable backend infrastructure, high-performance web systems, and intelligent AI products with clean architecture and pixel-perfect design.",
 };
 
-export const projectsData: Project[] = [
+export const projectsData: Project[] = fixAssets([
   {
     id: "proj-budget-eagle",
     title: "Budget Eagle",
@@ -578,9 +604,9 @@ export const projectsData: Project[] = [
     liveUrl: "https://drive.google.com/file/d/16XBSGHRMePketYUAwlzTM_qGO98CUzCW/view?usp=drive_link",
     featured: true,
   },
-];
+]);
 
-export const certificatesData: Certificate[] = [
+export const certificatesData: Certificate[] = fixAssets([
   {
     id: "cert-infosys",
     title: "Infosys Springboard SDE Internship",
@@ -670,7 +696,7 @@ export const certificatesData: Certificate[] = [
     image: "/certificates/patent4.jpg",
     credentialUrl: "/certificates/patent4.jpg",
   },
-];
+]);
 
 export interface Achievement {
   id: string;
@@ -683,7 +709,7 @@ export interface Achievement {
   description: string;
 }
 
-export const achievementsData: Achievement[] = [
+export const achievementsData: Achievement[] = fixAssets([
   {
     id: "ach-gemini",
     title: "Google Gemini Student Ambassador 2026",
@@ -813,9 +839,9 @@ export const achievementsData: Achievement[] = [
     tag: "Conference Certificate",
     description: "Awarded Certificate of Presentation for Climate Action, AI, and Sustainable Systems paper at ICASW.",
   },
-];
+]);
 
-export const hackathonsData: HackathonItem[] = [
+export const hackathonsData: HackathonItem[] = fixAssets([
   {
     id: "hack-qualcomm",
     name: "Qualcomm Hackathon",
@@ -852,9 +878,9 @@ export const hackathonsData: HackathonItem[] = [
     projectTitle: "Various Projects",
     description: "Participated in 20+ national hackathons solving real-world challenges in AI, IoT, and web systems.",
   },
-];
+]);
 
-export const galleryData: GalleryItem[] = [
+export const galleryData: GalleryItem[] = fixAssets([
   {
     id: "gal-pub-patent1",
     title: "Patent Grant #1 (Govt. of India)",
@@ -1263,9 +1289,9 @@ export const galleryData: GalleryItem[] = [
     caption: "Participating in my very first technical hackathon with team at Amity University Noida campus.",
     spanClass: "md:col-span-2 md:row-span-1",
   },
-];
+]);
 
-export const blogsData: BlogPost[] = [
+export const blogsData: BlogPost[] = fixAssets([
   {
     id: "blog-budget-eagle",
     title: "How I Built Budget Eagle: An AI Finance Platform",
@@ -1310,4 +1336,4 @@ export const blogsData: BlogPost[] = [
     url: "https://medium.com",
     tags: ["Algorithms", "Career", "DSA"],
   },
-];
+]);

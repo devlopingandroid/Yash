@@ -1,3 +1,29 @@
+import { getAssetPath } from "@/lib/asset";
+
+function fixAssets<T>(obj: T): T {
+  if (!obj) return obj;
+  if (typeof obj === "string") {
+    if (
+      (obj.startsWith("/") || obj.startsWith("./")) &&
+      /\.(png|jpe?g|svg|webp|gif|pdf|ico)$/i.test(obj)
+    ) {
+      return getAssetPath(obj) as unknown as T;
+    }
+    return obj;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(fixAssets) as unknown as T;
+  }
+  if (typeof obj === "object") {
+    const res: Record<string, any> = {};
+    for (const key of Object.keys(obj)) {
+      res[key] = fixAssets((obj as any)[key]);
+    }
+    return res as T;
+  }
+  return obj;
+}
+
 export interface ProjectCaseStudyDetail {
   slug: string;
   id: string;
@@ -189,7 +215,7 @@ export interface ProjectCaseStudyDetail {
   };
 }
 
-export const caseStudiesData: Record<string, ProjectCaseStudyDetail> = {
+export const caseStudiesData: Record<string, ProjectCaseStudyDetail> = fixAssets({
   "budget-eagle": {
     slug: "budget-eagle",
     id: "proj-budget-eagle",
@@ -2193,5 +2219,5 @@ WITH CHECK (auth.uid() = user_id);`,
       documentation: "https://github.com/devlopingandroid/SkillForge-AI#readme",
     },
   },
-};
+});
 
