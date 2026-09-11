@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks, personalInfo } from "@/data/portfolio-data";
-import { Menu, X, FileDown, Eye, Terminal } from "lucide-react";
+import { Menu, X, FileDown, Eye, Terminal, ArrowRight } from "lucide-react";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { SiLeetcode } from "react-icons/si";
 import Button from "@/components/ui/Button";
@@ -73,7 +73,7 @@ export const Navbar: React.FC = () => {
             : "bg-white/70 dark:bg-[#0F0E0C]/70 backdrop-blur-md border-b border-stone-200/40 dark:border-stone-800/40 py-4"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+        <div className="w-full max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-14 xl:px-20 flex items-center justify-between gap-4">
           {/* Left Brand: Name */}
           <a
             href="#home"
@@ -182,15 +182,15 @@ export const Navbar: React.FC = () => {
             </Button>
 
             <Button
-              href={personalInfo.resumeUrl}
-              download="Yash_Goel.pdf"
-              target="_blank"
+              href="#contact"
+              onClick={(e) => handleNavClick(e, "contact")}
               variant="primary"
               size="sm"
-              className="text-xs px-3.5 py-1.5 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold shadow-sm shadow-orange-500/20 border-none"
-              icon={<FileDown className="w-3.5 h-3.5" />}
+              className="text-xs uppercase tracking-wider px-4 py-2 bg-[#EA580C] hover:bg-[#C2410C] text-white font-extrabold shadow-sm shadow-orange-500/25 border-none rounded-xl flex items-center gap-1.5"
+              icon={<ArrowRight className="w-3.5 h-3.5" />}
+              iconPosition="right"
             >
-              Download
+              Let&apos;s Talk
             </Button>
           </div>
 

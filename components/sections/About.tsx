@@ -3,7 +3,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { aboutData, personalInfo } from "@/data/portfolio-data";
+import { aboutData, personalInfo, heroStats } from "@/data/portfolio-data";
 import SectionBadge from "@/components/ui/SectionBadge";
 import {
   Server,
@@ -12,7 +12,26 @@ import {
   Rocket,
   Code2,
   Sparkles,
+  Briefcase,
+  Cpu,
+  Award,
+  Code,
 } from "lucide-react";
+
+const getStatIcon = (iconName: string) => {
+  switch (iconName) {
+    case "Briefcase":
+      return <Briefcase className="w-5 h-5 text-accent-teal" />;
+    case "Cpu":
+      return <Cpu className="w-5 h-5 text-accent-teal" />;
+    case "Award":
+      return <Award className="w-5 h-5 text-accent-teal" />;
+    case "Code":
+      return <Code className="w-5 h-5 text-accent-teal" />;
+    default:
+      return <Code className="w-5 h-5 text-accent-teal" />;
+  }
+};
 
 const getSkillIcon = (iconName: string) => {
   switch (iconName) {
@@ -137,6 +156,32 @@ export const About: React.FC = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Key Milestones & Stats Row (Internships, DSA, Patents, Projects) */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-4 mt-10 pt-8 border-t border-stone-200/80 dark:border-stone-800/80"
+      >
+        {heroStats.map((stat) => (
+          <div
+            key={stat.id}
+            className="p-4 sm:p-5 flex flex-col items-start gap-1 bg-white/80 dark:bg-stone-900/60 backdrop-blur-md border border-stone-200/80 dark:border-stone-800/80 rounded-2xl shadow-sm hover:shadow-md hover:border-orange-500/30 transition-all group"
+          >
+            <div className="p-2 rounded-xl bg-orange-500/10 border border-orange-500/20 text-accent-teal mb-1 group-hover:scale-110 transition-transform">
+              {getStatIcon(stat.iconName)}
+            </div>
+            <span className="text-2xl sm:text-3xl font-extrabold font-mono tracking-tight text-primary">
+              {stat.number}
+            </span>
+            <span className="text-xs sm:text-sm font-medium text-muted">
+              {stat.label}
+            </span>
+          </div>
+        ))}
+      </motion.div>
     </section>
   );
 };

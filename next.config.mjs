@@ -1,14 +1,13 @@
+const isProd = process.env.NODE_ENV === "production";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["react-icons"],
-  async rewrites() {
-    return [
-      {
-        source: "/case-study/:slug",
-        destination: "/projects/:slug",
-      },
-    ];
+  output: "export",
+  basePath: isProd ? "/Portfolio" : "",
+  images: {
+    unoptimized: true,
   },
+  transpilePackages: ["react-icons"],
 };
 
 export default nextConfig;

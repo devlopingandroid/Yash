@@ -18,7 +18,7 @@ export default function Home() {
 
       {/* Main Content Area with 3D Spatial Transition Wrappers */}
       <main className="min-h-screen">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="w-full max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-14 xl:px-20">
           <Section3DWrapper>
             <Hero />
           </Section3DWrapper>

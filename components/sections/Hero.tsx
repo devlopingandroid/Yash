@@ -1,232 +1,55 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { personalInfo, heroStats } from "@/data/portfolio-data";
+import React from "react";
+import { motion } from "framer-motion";
+import { personalInfo } from "@/data/portfolio-data";
 import Button from "@/components/ui/Button";
 import {
-  Briefcase,
-  Code,
-  Cpu,
-  Award,
   ArrowRight,
   Mail,
   Terminal,
   Code2,
-  Building2,
-  Sparkles,
-  Trophy,
-  Layers,
 } from "lucide-react";
 
-const getStatIcon = (iconName: string) => {
-  switch (iconName) {
-    case "Briefcase":
-      return <Briefcase className="w-5 h-5 text-accent-teal" />;
-    case "Code":
-      return <Code className="w-5 h-5 text-accent-teal" />;
-    case "Cpu":
-      return <Cpu className="w-5 h-5 text-accent-teal" />;
-    case "Award":
-      return <Award className="w-5 h-5 text-accent-teal" />;
-    default:
-      return <Code className="w-5 h-5 text-accent-teal" />;
-  }
-};
-
-interface AchievementCard {
-  id: string;
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-  badge: string;
-}
-
-const achievementCards: AchievementCard[] = [
-  {
-    id: "drdo",
-    icon: <Building2 className="w-5 h-5 text-accent-teal" />,
-    title: "DRDO Intern",
-    desc: "Worked on real-world engineering projects",
-    badge: "Defense R&D",
-  },
-  {
-    id: "gemini",
-    icon: <Sparkles className="w-5 h-5 text-accent-teal" />,
-    title: "Google Gemini Ambassador",
-    desc: "Representing AI innovation initiatives",
-    badge: "Campus AI Face",
-  },
-  {
-    id: "patents",
-    icon: <Award className="w-5 h-5 text-accent-teal" />,
-    title: "4 Published Patents",
-    desc: "AI & Intelligent Systems Research",
-    badge: "Govt. of India",
-  },
-  {
-    id: "cyi",
-    icon: <Trophy className="w-5 h-5 text-accent-teal" />,
-    title: "IIT Delhi Top 100 Ideathon",
-    desc: "National-level innovation recognition",
-    badge: "CYI Finalist",
-  },
-  {
-    id: "fullstack",
-    icon: <Layers className="w-5 h-5 text-accent-teal" />,
-    title: "Full Stack Developer",
-    desc: "Building scalable web applications",
-    badge: "Next.js & AI",
-  },
-];
-
 export const Hero: React.FC = () => {
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
-
-  // Auto-rotate achievement card every 3.5 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentCardIndex((prev) => (prev + 1) % achievementCards.length);
-    }, 3500);
-    return () => clearInterval(timer);
-  }, []);
-
-  const activeCard = achievementCards[currentCardIndex];
-
   return (
     <section
       id="home"
       className="min-h-[calc(100vh-4rem)] lg:min-h-screen flex flex-col justify-center py-12 lg:py-20 relative overflow-hidden"
     >
-      {/* 1. Ultra-clean Subtle Architectural Grid Texture */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(120,113,108,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(120,113,108,0.06)_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,#000_70%,transparent_100%)] pointer-events-none -z-10" />
+      {/* 1. Subtle Architectural Grid Texture */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(120,113,108,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(120,113,108,0.05)_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,#000_70%,transparent_100%)] pointer-events-none -z-10" />
 
       {/* 2. Soft Ambient Warm Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-orange-500/6 via-amber-500/4 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute top-1/2 right-10 w-[300px] h-[300px] bg-orange-500/4 rounded-full blur-[90px] pointer-events-none -z-10" />
+      <div className="absolute top-1/3 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-orange-500/8 via-amber-500/5 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-1/2 right-10 w-[400px] h-[400px] bg-orange-500/5 rounded-full blur-[100px] pointer-events-none -z-10" />
 
-      {/* 3. Floating Micro-particles / Glowing Ambient Dots */}
-      <motion.div
-        animate={{ y: [-10, 10, -10], opacity: [0.3, 0.7, 0.3] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 left-[15%] w-1.5 h-1.5 rounded-full bg-accent-teal/50 blur-[0.5px] pointer-events-none -z-10"
-      />
-      <motion.div
-        animate={{ y: [10, -10, 10], opacity: [0.4, 0.8, 0.4] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute top-2/3 left-[25%] w-2 h-2 rounded-full bg-amber-500/40 blur-[0.5px] pointer-events-none -z-10"
-      />
-      <motion.div
-        animate={{ y: [-15, 15, -15], opacity: [0.2, 0.6, 0.2] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute top-1/3 right-[18%] w-1.5 h-1.5 rounded-full bg-orange-400/50 blur-[0.5px] pointer-events-none -z-10"
-      />
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-        {/* Left Column: Greeting, Name, Role, Description, Action Buttons, Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="lg:col-span-7 order-2 lg:order-1 flex flex-col justify-center"
-        >
-          {/* Greeting Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-xs font-mono text-accent-teal font-semibold mb-4 w-fit">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent-teal animate-pulse" />
-            <span>{personalInfo.greeting}</span>
-          </div>
-
-          {/* Name with Gradient Accent */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-primary tracking-tight mb-3 leading-tight">
-            {personalInfo.firstName}{" "}
-            <span className="bg-gradient-to-r from-orange-600 via-amber-600 to-orange-500 bg-clip-text text-transparent inline-block">
-              {personalInfo.lastName}.
-            </span>
-          </h1>
-
-          {/* Role Subtitle */}
-          <h2 className="text-lg sm:text-xl font-mono font-medium text-muted mb-6 flex items-center gap-2">
-            <Terminal className="w-4 h-4 text-accent-teal inline" />
-            <span className="text-primary font-bold">{personalInfo.role}</span>
-          </h2>
-
-          {/* Personal & Engineering-focused Description */}
-          {personalInfo.tagline && (
-            <p className="text-base sm:text-lg text-muted max-w-xl mb-8 leading-relaxed">
-              {personalInfo.tagline}
-            </p>
-          )}
-
-          {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-4 mb-10">
-            <Button
-              href="#projects"
-              variant="primary"
-              size="lg"
-              className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold shadow-md shadow-orange-500/25 border-none px-6 py-3"
-              icon={<ArrowRight className="w-4 h-4" />}
-              iconPosition="right"
-            >
-              View Projects
-            </Button>
-
-            <Button
-              href="#contact"
-              variant="outline"
-              size="lg"
-              className="bg-white/80 dark:bg-stone-900/80 hover:bg-white dark:hover:bg-stone-900 text-primary border border-stone-200/90 dark:border-stone-800 hover:border-orange-500/40 shadow-sm px-6 py-3 font-semibold"
-              icon={<Mail className="w-4 h-4" />}
-            >
-              Contact Me
-            </Button>
-          </div>
-
-          {/* Horizontal Stats Row */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-6 border-t border-stone-200/80 dark:border-stone-800/80">
-            {heroStats.map((stat) => (
-              <div
-                key={stat.id}
-                className="p-4 flex flex-col items-start gap-1 bg-white/80 dark:bg-stone-900/60 backdrop-blur-md border border-stone-200/80 dark:border-stone-800/80 rounded-2xl shadow-sm hover:shadow-md hover:border-orange-500/30 transition-all group"
-              >
-                <div className="p-2 rounded-xl bg-orange-500/10 border border-orange-500/20 text-accent-teal mb-1 group-hover:scale-110 transition-transform">
-                  {getStatIcon(stat.iconName)}
-                </div>
-                <span className="text-2xl sm:text-3xl font-extrabold font-mono tracking-tight text-primary">
-                  {stat.number}
-                </span>
-                <span className="text-xs font-medium text-muted">
-                  {stat.label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Right Column: Studio Portrait Card with Perfectly Blended Frame + Offset Badges */}
+      {/* Main Grid: Left Photo + Right Content */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center w-full my-auto">
+        
+        {/* Left Column: Clean Circular Photo (No moving badges) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="lg:col-span-5 order-1 lg:order-2 flex justify-center items-center relative py-6"
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="lg:col-span-5 flex justify-center items-center order-1 lg:order-1 py-4 sm:py-6"
         >
-          {/* Main Studio Frame Container */}
-          <div className="relative w-72 h-[380px] sm:w-[320px] sm:h-[430px] md:w-[360px] md:h-[480px] lg:w-[390px] lg:h-[510px] flex items-end justify-center group">
-            {/* Ambient Aura Behind Studio Card */}
-            <div className="absolute -inset-2 bg-gradient-to-tr from-orange-500/12 via-amber-500/6 to-transparent rounded-[2.75rem] blur-xl -z-10" />
-            <div className="absolute -inset-3.5 rounded-[3rem] border border-orange-500/10 -z-10 pointer-events-none" />
+          <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[360px] md:h-[360px] lg:w-[410px] lg:h-[410px] xl:w-[440px] xl:h-[440px] flex items-center justify-center group">
+            {/* Ambient Warm Radial Aura */}
+            <div className="absolute -inset-4 bg-gradient-to-tr from-orange-500/20 via-amber-500/10 to-transparent rounded-full blur-3xl -z-10" />
 
-            {/* Studio Card Canvas */}
-            <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden border border-stone-200/90 dark:border-stone-800 bg-gradient-to-b from-stone-50 via-orange-50/25 to-stone-100 dark:from-stone-900 dark:via-stone-900/90 dark:to-stone-950 shadow-xl shadow-stone-900/5 dark:shadow-black/40 flex flex-col justify-end">
-              {/* Soft Radial Studio Spotlight */}
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(234,88,12,0.09),transparent_70%)] pointer-events-none" />
+            {/* Subtle Architectural Outer Rings */}
+            <div className="absolute -inset-3.5 rounded-full border border-dashed border-orange-500/20 dark:border-orange-500/30 pointer-events-none -z-10" />
+            <div className="absolute -inset-7 rounded-full border border-stone-200/60 dark:border-stone-800/60 pointer-events-none -z-10" />
 
-              {/* Developer Cutout Photo */}
-              <div className="w-full h-[95%] relative flex items-end justify-center overflow-hidden">
+            {/* Circular Image Canvas */}
+            <div className="relative w-full h-full rounded-full p-2.5 sm:p-3 border-2 border-stone-200/90 dark:border-stone-800 bg-gradient-to-b from-white via-orange-50/15 to-stone-100 dark:from-stone-900 dark:via-stone-900/90 dark:to-stone-950 shadow-2xl shadow-stone-900/10 dark:shadow-black/50 overflow-hidden">
+              <div className="w-full h-full rounded-full overflow-hidden relative shadow-inner bg-dark-surface">
                 <img
                   src={personalInfo.avatarUrl}
                   alt={personalInfo.name}
-                  className="w-full h-full object-contain object-bottom scale-105 group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_12px_24px_rgba(0,0,0,0.12)] filter contrast-[1.02]"
+                  className="w-full h-full object-cover object-[50%_15%] scale-105 group-hover:scale-110 transition-transform duration-500 filter contrast-[1.02]"
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
                     const fallbackDiv = e.currentTarget.parentElement?.querySelector(
@@ -235,8 +58,6 @@ export const Hero: React.FC = () => {
                     if (fallbackDiv) fallbackDiv.style.display = "flex";
                   }}
                 />
-                {/* Seamless Bottom Gradient Fade */}
-                <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-stone-100/90 dark:from-stone-950/90 to-transparent pointer-events-none" />
 
                 <div className="avatar-fallback hidden absolute inset-0 bg-dark-surface flex-col items-center justify-center text-center p-6 border border-dark-border rounded-full">
                   <Code2 className="w-16 h-16 text-accent-teal mb-3" />
@@ -249,78 +70,102 @@ export const Hero: React.FC = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </motion.div>
 
-            {/* Floating Developer Status Code Chip (Offset Top-Left) */}
-            <motion.div
-              animate={{ y: [-6, 6, -6] }}
-              transition={{
-                duration: 4.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute -top-4 -left-3 sm:-left-8 z-30"
-            >
-              <div className="p-3 bg-white/95 dark:bg-stone-900/95 border border-stone-200/90 dark:border-stone-800 backdrop-blur-xl font-mono text-[11px] hidden sm:block rounded-2xl shadow-lg whitespace-nowrap">
-                <div className="flex items-center gap-1.5 mb-1.5 pb-1 border-b border-stone-200/60 dark:border-stone-800 text-[10px] text-muted">
-                  <span className="w-2 h-2 rounded-full bg-red-500/80" />
-                  <span className="w-2 h-2 rounded-full bg-yellow-500/80" />
-                  <span className="w-2 h-2 rounded-full bg-green-500/80" />
-                  <span className="ml-auto text-accent-teal font-semibold text-[10px]">yash.ts</span>
-                </div>
-                <div className="space-y-0.5 leading-snug">
-                  <p className="text-muted">
-                    <span className="text-purple-600 dark:text-purple-400 font-semibold">const</span> engineer = &#123;
-                  </p>
-                  <p className="pl-2.5 text-muted">
-                    focus: <span className="text-accent-teal font-semibold">&apos;AI & Systems&apos;</span>,
-                  </p>
-                  <p className="pl-2.5 text-muted">
-                    status: <span className="text-amber-600 dark:text-amber-300 font-semibold">&apos;shipping...&apos;</span>
-                  </p>
-                  <p className="text-muted">&#125;;</p>
-                </div>
+        {/* Right Column: Clean Content + Code Snippet with Name + Action Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="lg:col-span-7 flex flex-col justify-center order-2 lg:order-2 w-full"
+        >
+          {/* Greeting Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-xs font-mono text-accent-teal font-semibold mb-3.5 w-fit">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-teal animate-pulse" />
+            <span>{personalInfo.greeting}</span>
+          </div>
+
+          {/* Name with Warm Gradient Accent */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-primary tracking-tight mb-2 leading-tight">
+            {personalInfo.firstName}{" "}
+            <span className="bg-gradient-to-r from-orange-600 via-amber-600 to-orange-500 bg-clip-text text-transparent inline-block">
+              {personalInfo.lastName}.
+            </span>
+          </h1>
+
+          {/* Role Subtitle */}
+          <h2 className="text-lg sm:text-xl font-mono font-medium text-muted mb-6 flex items-center gap-2">
+            <Terminal className="w-4 h-4 text-accent-teal inline" />
+            <span className="text-primary font-bold">{personalInfo.role}</span>
+          </h2>
+
+          {/* Clean Sophisticated Code Card with Name */}
+          <div className="relative w-full mb-7 rounded-2xl border border-stone-200/90 dark:border-stone-800 bg-stone-900/95 dark:bg-[#0C0A09]/95 text-stone-200 p-4 sm:p-5 font-mono shadow-xl backdrop-blur-md overflow-hidden">
+            {/* Window Header */}
+            <div className="flex items-center justify-between pb-3 mb-3 border-b border-stone-800 text-stone-400 text-xs">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-[#FF5F56] shadow-sm" />
+                <span className="w-3 h-3 rounded-full bg-[#FFBD2E] shadow-sm" />
+                <span className="w-3 h-3 rounded-full bg-[#27C93F] shadow-sm" />
+                <span className="ml-2 text-stone-400 font-mono text-xs">developer.ts</span>
               </div>
-            </motion.div>
+              <span className="text-[10px] font-mono text-accent-teal bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20 font-semibold">
+                TypeScript
+              </span>
+            </div>
 
-            {/* Dynamic Rotating Achievement Card (Offset Bottom-Right) */}
-            <motion.div
-              animate={{ y: [6, -6, 6] }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute -bottom-4 -right-2 sm:-right-8 z-30 min-w-[250px] sm:min-w-[280px] max-w-[310px]"
+            {/* Code Content */}
+            <div className="space-y-1 leading-relaxed text-[12px] sm:text-[13px]">
+              <p>
+                <span className="text-purple-400 font-semibold">const</span>{" "}
+                <span className="text-amber-400 font-semibold">engineer</span>:{" "}
+                <span className="text-accent-teal font-semibold">SoftwareEngineer</span> = &#123;
+              </p>
+              <p className="pl-4 sm:pl-6">
+                <span className="text-stone-400">name:</span>{" "}
+                <span className="text-emerald-400 font-medium">&apos;Yash Goel&apos;</span>,
+              </p>
+              <p className="pl-4 sm:pl-6">
+                <span className="text-stone-400">role:</span>{" "}
+                <span className="text-emerald-400 font-medium">&apos;Software Engineer&apos;</span>,
+              </p>
+              <p className="pl-4 sm:pl-6">
+                <span className="text-stone-400">focus:</span>{" "}
+                [<span className="text-emerald-400 font-medium">&apos;Distributed Systems&apos;</span>,{" "}
+                <span className="text-emerald-400 font-medium">&apos;Full-Stack&apos;</span>,{" "}
+                <span className="text-emerald-400 font-medium">&apos;Applied AI&apos;</span>],
+              </p>
+              <p className="pl-4 sm:pl-6">
+                <span className="text-stone-400">status:</span>{" "}
+                <span className="text-amber-300 font-medium">&apos;Building high-performance solutions&apos;</span>
+              </p>
+              <p>&#125;;</p>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap items-center gap-4">
+            <Button
+              href="#projects"
+              variant="primary"
+              size="lg"
+              className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold shadow-md shadow-orange-500/25 border-none px-7 py-3 text-sm"
+              icon={<ArrowRight className="w-4 h-4" />}
+              iconPosition="right"
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeCard.id}
-                  initial={{ opacity: 0, y: 12, scale: 0.96 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -12, scale: 0.96 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                >
-                  <div className="p-3.5 bg-white/95 dark:bg-stone-900/95 border border-stone-200/90 dark:border-stone-800 backdrop-blur-xl rounded-2xl shadow-lg flex items-center gap-3.5">
-                    <div className="p-2.5 rounded-xl bg-orange-500/10 border border-orange-500/20 shrink-0 flex items-center justify-center w-10 h-10 text-accent-teal">
-                      {activeCard.icon}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2 mb-0.5">
-                        <span className="text-xs font-bold text-primary truncate">
-                          {activeCard.title}
-                        </span>
-                        <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-orange-500/10 text-accent-teal border border-orange-500/20 shrink-0 font-semibold">
-                          {activeCard.badge}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-muted leading-tight truncate">
-                        {activeCard.desc}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </motion.div>
+              View Projects
+            </Button>
+
+            <Button
+              href="#contact"
+              variant="outline"
+              size="lg"
+              className="bg-white/80 dark:bg-stone-900/80 hover:bg-white dark:hover:bg-stone-900 text-primary border border-stone-200/90 dark:border-stone-800 hover:border-orange-500/40 shadow-sm px-7 py-3 text-sm font-semibold"
+              icon={<Mail className="w-4 h-4" />}
+            >
+              Contact Me
+            </Button>
           </div>
         </motion.div>
       </div>

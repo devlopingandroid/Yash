@@ -332,7 +332,7 @@ export const personalInfo: PersonalInfo = {
   role: "Software Engineer",
   greeting: "Hi, I'm",
   tagline: "",
-  avatarUrl: "/profile.png",
+  avatarUrl: "/professional.jpeg",
   resumeUrl: "/Yash_Goel.pdf",
   email: "yashgoel15119@gmail.com",
   phone: "+91 98765 43210",
