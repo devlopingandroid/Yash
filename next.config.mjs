@@ -1,12 +1,11 @@
-const isGithubActions = process.env.GITHUB_ACTIONS === "true";
-const repoName = process.env.GITHUB_REPOSITORY
-  ? `/${process.env.GITHUB_REPOSITORY.split("/")[1]}`
-  : "";
+const isProd = process.env.NODE_ENV === "production";
+const isVercel = process.env.VERCEL === "1";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
-  basePath: isGithubActions ? repoName : "",
+  basePath: isProd && !isVercel ? "/Yash" : "",
+  assetPrefix: isProd && !isVercel ? "/Yash/" : "",
   images: {
     unoptimized: true,
   },
