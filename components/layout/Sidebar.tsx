@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks, personalInfo } from "@/data/portfolio-data";
-import { Menu, X, FileDown, Eye, Terminal, ArrowRight, FileText } from "lucide-react";
+import { Menu, X, FileDown, Terminal, ArrowRight, FileText } from "lucide-react";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { SiLeetcode } from "react-icons/si";
 import Button from "@/components/ui/Button";
@@ -42,7 +42,7 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
+    e: React.MouseEvent<HTMLElement>,
     sectionId: string
   ) => {
     e.preventDefault();
