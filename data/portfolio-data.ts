@@ -74,6 +74,7 @@ export interface ExperienceItem {
   id: string;
   role: string;
   company: string;
+  category?: string;
   logoUrl?: string;
   period: string;
   location: string;
@@ -90,6 +91,7 @@ export const experienceData: ExperienceItem[] = fixAssets([
     id: "exp-infosys",
     role: "Software Development Intern",
     company: "Infosys Springboard",
+    category: "Civic Tech",
     logoUrl: "/logos/infosys.jpg",
     period: "Jul 2026 – Sep 2026",
     location: "Remote",
@@ -97,18 +99,18 @@ export const experienceData: ExperienceItem[] = fixAssets([
     projectHighlight: "Civic Grievance Management System",
     theme: "teal",
     bullets: [
-      "Engineered an end-to-end civic complaint portal enabling citizens to submit public infrastructure issues and track real-time resolution stages.",
-      "Implemented secure role-based access control (RBAC) using Spring Security and JWT, segregating citizen, field officer, and municipal admin permissions.",
-      "Developed 15+ REST endpoints in Spring Boot with modular service/DAO layers, optimizing MySQL indexes for rapid search and status filtering.",
-      "Constructed dynamic citizen-facing dashboards in Angular with reactive form validation, live status counters, and responsive mobile-first layouts."
+      "Built a web portal to let citizens report and track issues related to public infrastructure (e.g., roads, streetlights, sanitation) with real-time status updates.",
+      "Implemented role-based access control (RBAC) using Spring Security and JWT, segregating citizen, field officer, and municipal admin permissions.",
+      "Developed 15+ REST endpoints in Spring Boot with modular service/DAO layers, optimizing MySQL indexes for faster search and status filtering."
     ],
-    technologies: ["Angular", "Spring Boot", "Java", "MySQL", "JWT", "REST APIs", "Git"],
+    technologies: ["Java", "Spring Boot", "MySQL", "JWT", "REST APIs", "Angular", "Git"],
     certificateUrl: "/certificates/1-page-00001.jpg",
   },
   {
     id: "exp-drdo",
     role: "Software Intern",
     company: "DRDO SSPL",
+    category: "Defense Tech & R&D",
     logoUrl: "/logos/drdo.png",
     period: "Jun 2026 – Aug 2026",
     location: "Delhi, India",
@@ -122,12 +124,13 @@ export const experienceData: ExperienceItem[] = fixAssets([
       "Wrote comprehensive unit test suites using JUnit and Mockito, ensuring reliable data transactions across high-priority defense accounts."
     ],
     technologies: ["Java", "Spring Boot", "MySQL", "JUnit", "Mockito", "REST APIs", "Git"],
-    certificateUrl: "/certificates/2-page-00001.jpg",
+    certificateUrl: "/certificates/drdo-certificate.png",
   },
   {
     id: "exp-iiitd",
     role: "Summer Research Intern",
     company: "IIIT Delhi",
+    category: "Biosensor Analytics & Research",
     logoUrl: "/logos/iiitd.jpg",
     period: "Jun 2025 – Aug 2025",
     location: "New Delhi, India",
@@ -619,13 +622,13 @@ export const certificatesData: Certificate[] = fixAssets([
   },
   {
     id: "cert-drdo",
-    title: "Research Internship Excellence",
-    issuer: "DRDO SSPL",
+    title: "DRDO SSPL Training Certificate",
+    issuer: "DRDO SSPL (Min. of Defence)",
     logo: "/logos/drdo.png",
     year: "2026",
     category: "Internships",
-    image: "/certificates/2-page-00001.jpg",
-    credentialUrl: "/certificates/2-page-00001.jpg",
+    image: "/certificates/drdo-certificate.png",
+    credentialUrl: "/certificates/drdo-certificate.png",
   },
   {
     id: "cert-iiitd",
@@ -914,6 +917,22 @@ export const galleryData: GalleryItem[] = fixAssets([
     spanClass: "md:col-span-1 md:row-span-1",
   },
   {
+    id: "gal-intern-drdo",
+    title: "DRDO SSPL Software Training Certificate",
+    category: "Internship",
+    image: "/certificates/drdo-certificate.png",
+    caption: "Official Training Certificate from Solid State Physics Laboratory (SSPL), DRDO (Min. of Defence). Designed & Developed Financial Management Software.",
+    spanClass: "md:col-span-1 md:row-span-1",
+  },
+  {
+    id: "gal-intern-infosys",
+    title: "Infosys Springboard SDE Internship",
+    category: "Internship",
+    image: "/certificates/1-page-00001.jpg",
+    caption: "Full Stack Software Development Internship Certificate at Infosys Springboard - Civic Grievance Management System.",
+    spanClass: "md:col-span-1 md:row-span-1",
+  },
+  {
     id: "gal-intern-iiitd-mhealth",
     title: "IIIT Delhi Research Internship (mHealth)",
     category: "Internship",
@@ -1106,11 +1125,11 @@ export const galleryData: GalleryItem[] = fixAssets([
     spanClass: "md:col-span-1 md:row-span-1",
   },
   {
-    id: "gal-cert-2",
-    title: "Technical Innovation Certificate",
+    id: "gal-cert-drdo-sspl",
+    title: "DRDO SSPL Training Certificate",
     category: "Certificates",
-    image: "/certificates/2-page-00001.jpg",
-    caption: "Recognition Certificate for Technical Innovation.",
+    image: "/certificates/drdo-certificate.png",
+    caption: "Solid State Physics Laboratory (SSPL), DRDO (Min. of Defence) Training Certificate in Financial Management Software Development.",
     spanClass: "md:col-span-1 md:row-span-1",
   },
   {

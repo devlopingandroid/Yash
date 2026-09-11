@@ -2,62 +2,20 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { motion, PanInfo, AnimatePresence } from "framer-motion";
 import { experienceData } from "@/data/portfolio-data";
 import SectionBadge from "@/components/ui/SectionBadge";
-import Card from "@/components/ui/Card";
 import {
-  Calendar,
-  MapPin,
-  CheckCircle2,
-  Building2,
   ChevronLeft,
   ChevronRight,
-  Sparkles,
-  ShieldCheck,
-  Activity,
   Award,
-  X,
   ExternalLink,
+  X,
 } from "lucide-react";
 
-const getThemeStyles = (theme?: "teal" | "blue" | "purple", isCenter?: boolean) => {
-  switch (theme) {
-    case "blue":
-      return {
-        cardBorder: isCenter
-          ? "border-2 border-amber-500/80 bg-gradient-to-b from-dark-surface via-dark-surface to-amber-500/10 shadow-[0_10px_35px_rgba(217,119,6,0.18)]"
-          : "border-amber-500/30 bg-dark-surface/90",
-        badge: "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30",
-        icon: <ShieldCheck className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />,
-        textAccent: "text-amber-600 dark:text-amber-400",
-        chip: "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30",
-      };
-    case "purple":
-      return {
-        cardBorder: isCenter
-          ? "border-2 border-stone-600/80 dark:border-stone-400/80 bg-gradient-to-b from-dark-surface via-dark-surface to-stone-500/10 shadow-[0_10px_35px_rgba(120,113,108,0.18)]"
-          : "border-stone-400/30 bg-dark-surface/90",
-        badge: "bg-stone-500/10 text-stone-700 dark:text-stone-300 border-stone-400/30",
-        icon: <Activity className="w-3.5 h-3.5 text-stone-600 dark:text-stone-400" />,
-        textAccent: "text-stone-700 dark:text-stone-300",
-        chip: "bg-stone-500/10 text-stone-700 dark:text-stone-300 border-stone-400/30",
-      };
-    case "teal":
-    default:
-      return {
-        cardBorder: isCenter
-          ? "border-2 border-accent-teal/80 bg-gradient-to-b from-dark-surface via-dark-surface to-accent-teal/15 shadow-[0_10px_35px_rgba(234,88,12,0.18)]"
-          : "border-accent-teal/30 bg-dark-surface/90",
-        badge: "bg-accent-teal/15 text-accent-teal border-accent-teal/30",
-        icon: <Sparkles className="w-3.5 h-3.5 text-accent-teal" />,
-        textAccent: "text-accent-teal",
-        chip: "bg-accent-teal/10 text-accent-teal border-accent-teal/20",
-      };
-  }
-};
-
 export const Experience: React.FC = () => {
+  const [mounted, setMounted] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -68,6 +26,10 @@ export const Experience: React.FC = () => {
   } | null>(null);
 
   const total = experienceData.length;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 640);
@@ -114,7 +76,7 @@ export const Experience: React.FC = () => {
   return (
     <section
       id="experience"
-      className="pt-4 md:pt-6 pb-12 md:pb-16 scroll-mt-4 md:scroll-mt-6 border-t border-dark-border/40 overflow-hidden"
+      className="pt-6 md:pt-8 pb-14 md:pb-20 scroll-mt-24 md:scroll-mt-28 border-t border-dark-border/40 overflow-hidden"
     >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <SectionBadge title="Work Experience" className="mb-0" />
@@ -137,16 +99,16 @@ export const Experience: React.FC = () => {
         </div>
       </div>
 
-      {/* 3D Coverflow Carousel Stage */}
+      {/* 3D Coverflow Sliding Stage */}
       <div
-        className="relative w-full max-w-6xl mx-auto min-h-[510px] sm:min-h-[540px] flex items-center justify-center py-4 overflow-hidden touch-pan-y"
+        className="relative w-full max-w-6xl mx-auto min-h-[510px] sm:min-h-[550px] flex items-center justify-center py-4 overflow-hidden touch-pan-y"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Left Navigation Button */}
         <button
           onClick={handlePrev}
-          className="absolute left-1 sm:left-4 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-dark-surface/90 border border-dark-border text-primary hover:border-accent-teal hover:text-accent-teal hover:shadow-teal-glow backdrop-blur-md transition-all z-40 shadow-xl"
+          className="absolute left-1 sm:left-4 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-dark-surface/90 border border-dark-border text-primary hover:border-accent-teal hover:text-accent-teal hover:shadow-teal-glow backdrop-blur-md transition-all z-40 shadow-xl cursor-pointer"
           aria-label="Previous Experience"
         >
           <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -155,30 +117,28 @@ export const Experience: React.FC = () => {
         {/* Right Navigation Button */}
         <button
           onClick={handleNext}
-          className="absolute right-1 sm:right-4 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-dark-surface/90 border border-dark-border text-primary hover:border-accent-teal hover:text-accent-teal hover:shadow-teal-glow backdrop-blur-md transition-all z-40 shadow-xl"
+          className="absolute right-1 sm:right-4 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-dark-surface/90 border border-dark-border text-primary hover:border-accent-teal hover:text-accent-teal hover:shadow-teal-glow backdrop-blur-md transition-all z-40 shadow-xl cursor-pointer"
           aria-label="Next Experience"
         >
           <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
 
-        {/* 3D Stage */}
+        {/* 3D Stage with Preserved Perspective and Rotation */}
         <div
-          className="relative w-full h-[490px] sm:h-[520px] flex items-center justify-center overflow-hidden"
+          className="relative w-full h-[510px] sm:h-[540px] flex items-center justify-center overflow-hidden"
           style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
         >
           {experienceData.map((item, index) => {
             const offset = index - activeIndex;
             const absOffset = Math.abs(offset);
 
-            const xStep = isMobile ? 120 : 270;
+            const xStep = isMobile ? 120 : 280;
             const xOffset = offset * xStep;
             const scale = Math.max(0.65, 1 - absOffset * (isMobile ? 0.12 : 0.18));
-            const rotateY = offset < 0 ? 30 : offset > 0 ? -30 : 0;
-            const opacity = Math.max(0.15, 1 - absOffset * 0.4);
+            const rotateY = offset < 0 ? 28 : offset > 0 ? -28 : 0;
+            const opacity = Math.max(0.2, 1 - absOffset * 0.4);
             const zIndex = 20 - absOffset;
             const isCenter = offset === 0;
-
-            const theme = getThemeStyles(item.theme, isCenter);
 
             return (
               <motion.div
@@ -199,61 +159,52 @@ export const Experience: React.FC = () => {
                   damping: 25,
                 }}
                 onClick={() => setActiveIndex(index)}
-                className={`absolute w-[295px] sm:w-[480px] md:w-[560px] cursor-pointer touch-pan-y ${
+                className={`absolute w-[305px] sm:w-[500px] md:w-[580px] cursor-pointer touch-pan-y ${
                   isCenter ? "cursor-grab active:cursor-grabbing" : ""
                 }`}
                 style={{
                   transformStyle: "preserve-3d",
                 }}
               >
-                <Card
-                  className={`p-5 sm:p-6 flex flex-col justify-between h-[480px] sm:h-[500px] transition-all duration-300 ${theme.cardBorder}`}
+                {/* Modern Card Design matching Reference Layout */}
+                <div
+                  className={`p-5 sm:p-7 flex flex-col justify-between h-[500px] sm:h-[530px] rounded-2xl sm:rounded-3xl transition-all duration-300 ${
+                    isCenter
+                      ? "bg-white dark:bg-dark-surface border-2 border-accent-teal/80 shadow-[0_12px_40px_rgba(234,88,12,0.18)] dark:shadow-[0_12px_40px_rgba(249,115,22,0.15)]"
+                      : "bg-white/90 dark:bg-dark-surface/90 border border-dark-border/70 opacity-80 backdrop-blur-sm"
+                  }`}
                 >
-                  {/* Top Project Highlight & Status Header Bar */}
-                  <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-dark-border/40">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      {item.projectHighlight && (
-                        <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-semibold border ${theme.badge}`}>
-                          {theme.icon}
-                          <span>{item.projectHighlight}</span>
-                        </div>
-                      )}
-                      {item.current && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-accent-teal/15 text-accent-teal border border-accent-teal/30">
-                          <span className="w-1.5 h-1.5 rounded-full bg-accent-teal animate-pulse" />
-                          Most Recent
-                        </span>
-                      )}
-                    </div>
+                  {/* Top Row: Category Domain & Status */}
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <span className="text-xs sm:text-sm font-semibold text-accent-teal tracking-wide">
+                      {item.category || item.projectHighlight || "Engineering"}
+                    </span>
+
+                    {item.current && (
+                      <span className="text-xs sm:text-sm font-mono text-muted font-medium">
+                        Most Recent
+                      </span>
+                    )}
                   </div>
 
-                  {/* Card Header: Role, Org Name, Logo */}
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <div className="space-y-1">
-                      <h3 className="text-base sm:text-xl font-extrabold text-primary tracking-tight">
+                  {/* Header: Role, Company, Period & Company Logo */}
+                  <div className="flex items-start justify-between gap-3 mb-1">
+                    <div className="space-y-0.5">
+                      <h3 className="text-base sm:text-xl font-bold text-primary tracking-tight">
                         {item.role}
                       </h3>
 
-                      <div className={`flex items-center gap-1.5 font-mono font-semibold text-xs sm:text-sm ${theme.textAccent}`}>
-                        <Building2 className="w-4 h-4 shrink-0" />
-                        <span>{item.company}</span>
+                      <div className="text-sm sm:text-base font-bold text-accent-teal">
+                        {item.company}
                       </div>
 
-                      {/* Metadata Row: Period & Location */}
-                      <div className="flex items-center gap-3 text-xs font-mono text-muted flex-wrap pt-0.5">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-3.5 h-3.5 text-muted" />
-                          <span>{item.period}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <MapPin className="w-3.5 h-3.5 text-muted" />
-                          <span>{item.location}</span>
-                        </div>
-                      </div>
+                      <p className="text-xs font-mono text-muted pt-0.5">
+                        {item.period} &nbsp;|&nbsp; {item.location}
+                      </p>
                     </div>
 
-                    {/* Company Logo Badge */}
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white p-1.5 border-2 border-accent-teal/40 flex items-center justify-center shrink-0 shadow-lg overflow-hidden group-hover:scale-105 transition-transform">
+                    {/* Company Logo in Rounded Square Box */}
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white border border-dark-border/70 p-2 flex items-center justify-center shrink-0 shadow-sm overflow-hidden">
                       {item.logoUrl ? (
                         <img
                           src={item.logoUrl}
@@ -278,54 +229,64 @@ export const Experience: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Bullet Points with Strong Keyphrase Formatting */}
-                  <ul className="space-y-2 mb-3 text-xs sm:text-sm text-muted leading-relaxed flex-1 overflow-y-auto pr-1 scrollbar-none">
-                    {item.bullets.map((bullet, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5">
-                        <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${theme.textAccent}`} />
+                  {/* Divider Line */}
+                  <hr className="my-2.5 sm:my-3 border-dark-border/60" />
+
+                  {/* Bullet Points with Clean Circular Bullets */}
+                  <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-[13px] text-primary/85 dark:text-gray-300 leading-relaxed font-normal flex-1 overflow-y-auto pr-1 scrollbar-none">
+                    {item.bullets.map((bullet, bIdx) => (
+                      <li key={bIdx} className="flex items-start gap-2.5">
+                        <span className="text-primary/70 dark:text-gray-400 mt-0.5 text-xs select-none leading-none shrink-0">
+                          •
+                        </span>
                         <span>{bullet}</span>
                       </li>
                     ))}
                   </ul>
 
-                  {/* Tech Stack Chips & Footer Action Row */}
-                  <div className="pt-2.5 border-t border-dark-border/40 space-y-2.5 mt-auto">
-                    <div className="flex flex-wrap gap-1.5">
-                      {item.technologies.map((tech, techIdx) => (
-                        <span
-                          key={techIdx}
-                          className={`px-2.5 py-0.5 rounded-md text-[11px] font-mono font-medium border ${theme.chip}`}
-                        >
-                          #{tech}
-                        </span>
-                      ))}
-                    </div>
+                  {/* Divider Line */}
+                  <hr className="my-2.5 sm:my-3 border-dark-border/60" />
 
-                    {item.certificateUrl && (
-                      <div className="flex items-center justify-between pt-1">
-                        <span className="text-[11px] font-mono text-muted flex items-center gap-1">
-                          <Award className="w-3.5 h-3.5 text-accent-teal" />
-                          <span>Verified Certificate</span>
+                  {/* Technologies Row (Pipe Separated) */}
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-[13px] font-semibold text-accent-teal mb-2">
+                    {item.technologies.map((tech, tIdx) => (
+                      <React.Fragment key={tech}>
+                        <span className="hover:opacity-80 transition-opacity">
+                          {tech}
                         </span>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedCert({
-                              role: item.role,
-                              company: item.company,
-                              certificateUrl: item.certificateUrl!,
-                            });
-                          }}
-                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold bg-accent-teal text-white hover:bg-accent-teal-hover shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer shrink-0"
-                        >
-                          <Award className="w-3.5 h-3.5" />
-                          <span>View Certificate</span>
-                        </button>
-                      </div>
-                    )}
+                        {tIdx < item.technologies.length - 1 && (
+                          <span className="text-dark-border font-normal select-none">
+                            |
+                          </span>
+                        )}
+                      </React.Fragment>
+                    ))}
                   </div>
-                </Card>
+
+                  {/* View Certification Action */}
+                  {item.certificateUrl && (
+                    <div className="pt-2 border-t border-dark-border/40 flex items-center justify-between">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedCert({
+                            role: item.role,
+                            company: item.company,
+                            certificateUrl: item.certificateUrl!,
+                          });
+                        }}
+                        className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-accent-teal hover:text-accent-teal-hover transition-colors cursor-pointer group"
+                      >
+                        <Award className="w-4 h-4 text-accent-teal group-hover:scale-110 transition-transform" />
+                        <span className="underline underline-offset-4 decoration-accent-teal/40 group-hover:decoration-accent-teal">
+                          View Certification
+                        </span>
+                        <ExternalLink className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                      </button>
+                    </div>
+                  )}
+                </div>
               </motion.div>
             );
           })}
@@ -338,7 +299,7 @@ export const Experience: React.FC = () => {
           <button
             key={item.id}
             onClick={() => setActiveIndex(idx)}
-            className={`transition-all duration-300 rounded-full ${
+            className={`transition-all duration-300 rounded-full cursor-pointer ${
               activeIndex === idx
                 ? "w-8 h-2.5 bg-accent-teal shadow-teal-glow"
                 : "w-2.5 h-2.5 bg-dark-border hover:bg-muted"
@@ -348,71 +309,75 @@ export const Experience: React.FC = () => {
         ))}
       </div>
 
-      {/* Certificate Viewer Modal */}
-      <AnimatePresence>
-        {selectedCert && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedCert(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative max-w-4xl w-full bg-dark-surface border border-dark-border rounded-2xl p-4 sm:p-6 overflow-hidden shadow-2xl"
-            >
-              {/* Modal Header */}
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-dark-border">
-                <div>
-                  <h3 className="text-base sm:text-xl font-bold text-primary flex items-center gap-2">
-                    <Award className="w-5 h-5 text-accent-teal" />
-                    <span>{selectedCert.role}</span>
-                  </h3>
-                  <p className="text-xs font-mono text-accent-teal mt-0.5">
-                    {selectedCert.company} � Official Internship Certificate
-                  </p>
-                </div>
-                <button
-                  onClick={() => setSelectedCert(null)}
-                  className="p-2 rounded-lg bg-dark-border/50 text-muted hover:text-primary hover:bg-dark-border transition-colors"
-                  aria-label="Close Modal"
+      {/* Certificate Viewer Modal rendered at document.body */}
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {selectedCert && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setSelectedCert(null)}
+                className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+              >
+                <motion.div
+                  initial={{ scale: 0.94, opacity: 0, y: 15 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  exit={{ scale: 0.94, opacity: 0, y: 15 }}
+                  onClick={(e) => e.stopPropagation()}
+                  className="relative max-w-4xl w-full bg-white dark:bg-dark-surface border border-dark-border rounded-2xl p-4 sm:p-6 overflow-hidden shadow-2xl"
                 >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+                  {/* Modal Header */}
+                  <div className="flex items-center justify-between pb-3 sm:pb-4 mb-3 sm:mb-4 border-b border-dark-border">
+                    <div>
+                      <h3 className="text-base sm:text-xl font-bold text-primary flex items-center gap-2">
+                        <Award className="w-5 h-5 text-accent-teal" />
+                        <span>{selectedCert.role}</span>
+                      </h3>
+                      <p className="text-xs font-mono text-accent-teal mt-0.5">
+                        {selectedCert.company} &nbsp;•&nbsp; Official Verified Certificate
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setSelectedCert(null)}
+                      className="p-2 rounded-lg bg-dark-border/40 text-muted hover:text-primary hover:bg-dark-border transition-colors cursor-pointer"
+                      aria-label="Close Modal"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
 
-              {/* Certificate Image View */}
-              <div className="relative max-h-[70vh] flex items-center justify-center overflow-auto rounded-xl bg-black/40 p-2 border border-dark-border/60">
-                <img
-                  src={selectedCert.certificateUrl}
-                  alt={`${selectedCert.company} Certificate`}
-                  className="max-h-[65vh] w-auto object-contain rounded-lg shadow-lg"
-                />
-              </div>
+                  {/* Certificate Image View */}
+                  <div className="relative max-h-[70vh] flex items-center justify-center overflow-auto rounded-xl bg-black/5 dark:bg-black/40 p-2 sm:p-4 border border-dark-border/60">
+                    <img
+                      src={selectedCert.certificateUrl}
+                      alt={`${selectedCert.company} Certificate`}
+                      className="max-h-[65vh] w-auto object-contain rounded-lg shadow-md"
+                    />
+                  </div>
 
-              {/* Modal Footer */}
-              <div className="flex items-center justify-between pt-4 mt-4 border-t border-dark-border">
-                <span className="text-xs font-mono text-muted">
-                  Verified Industry & Research Credential
-                </span>
-                <a
-                  href={selectedCert.certificateUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-accent-teal text-dark-surface hover:shadow-teal-glow transition-all"
-                >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                  <span>Open Full Certificate</span>
-                </a>
-              </div>
-            </motion.div>
-          </motion.div>
+                  {/* Modal Footer */}
+                  <div className="flex items-center justify-between pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-dark-border">
+                    <span className="text-xs font-mono text-muted">
+                      Verified Industry & Research Credential
+                    </span>
+                    <a
+                      href={selectedCert.certificateUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold bg-accent-teal text-white hover:bg-accent-teal-hover transition-colors shadow-sm"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>Open Full Resolution</span>
+                    </a>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </section>
   );
 };
